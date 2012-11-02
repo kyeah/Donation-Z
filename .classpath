@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptiveAccounts/lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptiveAccounts/lib/paypal-auth-signature-1.0.jar"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptiveAccounts/lib/testng.jar"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/Merchant/dist/merchant-java-sdk_1.2.95.jar"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptivePayments/dist/adaptivepayments-java-sdk_1.2.95.jar"/>
+	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptiveAccounts/dist/adaptiveaccounts-java-sdk_1.2.95.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
