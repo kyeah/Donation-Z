@@ -53,7 +53,7 @@ public class Zombie
 	private void pickType() 
 	{
 		int num=0;
-		if(Math.random()<0.2)
+		if(Math.random()<0.1)
 			num=1;
 		else if(Math.random()<0.05)
 			num=2;

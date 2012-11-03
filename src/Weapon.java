@@ -36,12 +36,12 @@ public class Weapon
 		this.type=type;
 		if(type==0)
 		{
-			this.damage=(int) (Math.random()*5);
+			this.damage=(int) (Math.random()*5)+1;
 			fireDelay=300;
 		}
 		else if(type==1)
 		{
-			this.damage=(int) (Math.random()*3);
+			this.damage=(int) (Math.random()*3)+1;
 			fireDelay=50;
 		}
 	}

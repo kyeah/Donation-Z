@@ -33,6 +33,12 @@ public class Player
 		weapon.addAmmo(48);
 	}
 	
+	public void setPosition(int x, int y)
+	{
+		this.tx=x;
+		this.ty=y;
+	}
+	
 	public void fire()
 	{
 		weapon.fire();

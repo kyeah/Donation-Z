@@ -31,6 +31,8 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	static BufferedImage sand;
 	static BufferedImage blood_small;
 	
+	static boolean init=false;
+	
 	static int currentPage=0;
 	
 	static Point line;
@@ -87,6 +89,11 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			}
 			else
 			{
+				if(!init)
+				{
+					init=true;
+					player.setPosition(frame.getWidth()/2,frame.getHeight()/2);
+				}
 				refreshTimer=System.currentTimeMillis();
 				drawBackground(g);
 				drawBlood(g);
