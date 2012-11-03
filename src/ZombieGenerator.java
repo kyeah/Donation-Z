@@ -8,7 +8,6 @@ public class ZombieGenerator
 	
 	public static void generate(ArrayList<Zombie> zombies)
 	{
-		generateGun();
 		Runner.player.giveHealth(100);
 		
 		if(numZombies<1000)
@@ -33,10 +32,5 @@ public class ZombieGenerator
 		p.x=Runner.frame.getWidth()/2+(int) (Math.cos(angle)*constantx);
 		p.y=Runner.frame.getHeight()/2+(int) (Math.sin(angle)*constanty);
 		return p;
-	}
-
-	private static void generateGun()
-	{
-		Runner.player.weapon.newWeapon((int)(Math.random()*2));
 	}
 }

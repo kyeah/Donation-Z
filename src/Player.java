@@ -116,4 +116,14 @@ public class Player
 	{
 		health+=i;
 	}
+
+	public String whichWeapon() 
+	{
+		switch(weapon.type)
+		{
+		default:return "Pistol";
+		case 1:return "Machine Gun";
+		case 2:return "Shotgun";
+		}
+	}
 }

@@ -101,7 +101,7 @@ public class Login
 	            System.out.println(result);
 	            if(result==1)
 	            {
-	            	Runner.currentPage++;
+	            	Runner.currentPage=3;
 	            }
 	            else if(result==0)
 	            {

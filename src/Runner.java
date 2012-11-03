@@ -1,6 +1,9 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import donationz.Connect;
+import donationz.ConnectDetails;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -9,11 +12,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Runner extends JPanel implements MouseMotionListener, KeyListener, MouseListener
+public class Runner extends JPanel implements MouseMotionListener, KeyListener, MouseListener, MouseWheelListener
 {
 	private static final long serialVersionUID = -318708369614176297L;
 	static JFrame frame;
@@ -49,7 +56,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		frame.setBackground(Color.LIGHT_GRAY);
 		frame.addMouseListener(this);
 		frame.addMouseMotionListener(this);
-		//frame.addMouseWheelListener(this);
+		frame.addMouseWheelListener(this);
 		frame.addKeyListener(this);
 	}
 	
@@ -97,6 +104,23 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 				{
 					init=true;
 					player.setPosition(frame.getWidth()/2,frame.getHeight()/2);
+				}
+				if(player.getHealth()<0)
+				{
+					player.giveHealth(9400);
+					player.kills=0;
+					ConnectDetails connect = new ConnectDetails();
+			        String database = connect.getDBName();
+			        Connection con;
+			        try {
+			            Connect dz = new Connect(database);
+			            con = connect.getConnection();
+			            dz.updateScore(con, player.kills, Login.username);
+			        }
+			        catch(SQLException e) {
+			            System.err.println(e);
+			        }
+			        currentPage=0;
 				}
 				refreshTimer=System.currentTimeMillis();
 				drawBackground(g);
@@ -153,7 +177,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			if(z.getHealth()<0)
 			{
 				zombies.remove(i);
-				player.kills++;
+				player.kills+=z.score;
 				bloods.add(new Point(z.getX(),z.getY()));
 				i--;
 				continue;
@@ -282,5 +306,13 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		{
 			firing=false;
 		}
+	}
+
+	public void mouseWheelMoved(MouseWheelEvent e) 
+	{
+		player.weapon.type=(player.weapon.type+e.getWheelRotation())%3;
+		if(player.weapon.type<0)
+			player.weapon.type=2;
+		player.weapon.newWeapon(player.weapon.type);
 	}
 }

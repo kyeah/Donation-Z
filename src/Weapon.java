@@ -15,7 +15,8 @@ public class Weapon
 	private int clipSize,currentClip,ammo,damage;
 	public long fireDelay=300;
 	private static Clip clip,shotgun,machine;
-	private int type=0;
+	int type=0;
+	private int numBullets=1;
 	
 	static
 	{
@@ -36,13 +37,21 @@ public class Weapon
 		this.type=type;
 		if(type==0)
 		{
-			this.damage=(int) (Math.random()*5)+1;
+			this.damage=(int) 4;
 			fireDelay=300;
+			numBullets=1;
 		}
 		else if(type==1)
 		{
-			this.damage=(int) (Math.random()*3)+1;
+			this.damage=(int) 1;
 			fireDelay=50;
+			numBullets=1;
+		}
+		else if(type==2)
+		{
+			this.damage=(int) 2;
+			fireDelay=750;
+			numBullets=6;
 		}
 	}
 	
@@ -57,6 +66,11 @@ public class Weapon
 		f=new File("resources"+File.separator+"sounds"+File.separator+"machinegun.wav");
         inputStream = AudioSystem.getAudioInputStream(f);
         machine.open(inputStream);
+        
+        shotgun = AudioSystem.getClip();
+		f=new File("resources"+File.separator+"sounds"+File.separator+"shotgun.wav");
+        inputStream = AudioSystem.getAudioInputStream(f);
+        shotgun.open(inputStream);
 	}
 	
 	public void setClipSize(int i)
@@ -94,14 +108,25 @@ public class Weapon
 				machine.setFramePosition(0);
 				machine.start();
 			}
+			else if(type==2)
+			{
+				shotgun.setFramePosition(0);
+				shotgun.start();
+			}
 			//currentClip--;
-			checkIntersection();
+			for(int i=0; i<numBullets; i++)
+			{
+				double change=0.0;
+				if(i!=0)
+					change=Math.random()*.2-.1;
+				checkIntersection(change);
+			}
 		}
 	}
 
-	private void checkIntersection() 
+	private void checkIntersection(double change) 
 	{
-		Bullet bull=new Bullet(Runner.player.getX(),Runner.player.getY(),Runner.player.getAngle());
+		Bullet bull=new Bullet(Runner.player.getX(),Runner.player.getY(),Runner.player.getAngle()+change);
 		while(inBounds(bull))
 		{
 			bull.move();

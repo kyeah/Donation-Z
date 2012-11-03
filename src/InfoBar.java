@@ -17,6 +17,7 @@ public class InfoBar
 		g.setFont(new Font("Arial",Font.PLAIN,12));
 		g.drawString("Health: "+Runner.player.getHealth(),12,frame.getHeight()-HEIGHT+20);
 		g.drawString("Zombies Left: "+Runner.zombies.size(),152,frame.getHeight()-HEIGHT+20);
-		g.drawString("Kills: "+Runner.player.kills,12,frame.getHeight()-HEIGHT+40);
+		g.drawString("Score: "+Runner.player.kills,12,frame.getHeight()-HEIGHT+40);
+		g.drawString("Weapon: "+Runner.player.whichWeapon(),152,frame.getHeight()-HEIGHT+40);
 	}
 }

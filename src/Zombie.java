@@ -17,7 +17,8 @@ public class Zombie
 	private static BufferedImage normal,devil,goliath;
 	private double angle;
 	private int damage=1;
-	private double speed=2;
+	private double speed=1.25;
+	public int score=100;
 	
 	public int ID=0;
 	
@@ -69,20 +70,23 @@ public class Zombie
 		if(i==0)
 		{
 			img=normal;
+			score=100;
 		}
 		else if(i==1)
 		{
 			img=devil;
-			speed=4;
+			speed=3;
 			damage=5;
 			health=15;
+			score=250;
 		}
 		else
 		{
 			img=goliath;
 			speed=1.5;
 			damage=50;
-			health=100;
+			health=50;
+			score=500;
 		}
 	}
 	
@@ -126,6 +130,8 @@ public class Zombie
 		nx+=cx;
 		ny+=cy;
 		
+		System.out.println(nx+" "+ny);
+		
 		boolean movePossible=true;
 		/*for(Zombie z:Runner.zombies)
 		{
@@ -144,7 +150,7 @@ public class Zombie
 			ty=ny;
 		}
 		
-		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth()*6/5)
+		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth())
 		{
 			Runner.player.damage(damage);
 		}
