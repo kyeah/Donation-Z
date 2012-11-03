@@ -1,23 +1,36 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 
 public class Runner extends JPanel implements MouseMotionListener, KeyListener, MouseListener
 {
 	private static final long serialVersionUID = -318708369614176297L;
 	static JFrame frame;
 	static long refreshTimer=System.currentTimeMillis();
+	static long fireTimer=System.currentTimeMillis();
+	static long drawFireTimer=System.currentTimeMillis();
 	static Player player;
 	static int mouseX,mouseY;
 	static int moveHorizontal,moveVertical;
-	static boolean firing=true;
+	static boolean firing=false;
+	static ArrayList<Zombie> zombies=new ArrayList<Zombie>();
+	static ArrayList<Point> bloods=new ArrayList<Point>();
+	static ArrayList<Point> bloods_small=new ArrayList<Point>();
+	static BufferedImage blood;
+	static BufferedImage blood_small;
+	
+	static Point line;
 	
 	public Runner()
 	{
@@ -38,25 +51,95 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	public static void main(String args[])
 	{
 		player=new Player(100,100);
+		zombies.add(new Zombie(200,200));
 		new Runner();
+		
+		loadResources();
 	}
 	
+	private static void loadResources() 
+	{
+		try
+		{
+			blood=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"blood.png"));
+			blood_small=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"blood_small.png"));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public void paintComponent(Graphics g)
 	{
 		if(System.currentTimeMillis()-refreshTimer>32)
 		{
 			refreshTimer=System.currentTimeMillis();
 			drawBackground(g);
+			moveZombies();
+			drawZombies(g);
+			drawBlood(g);
 			player.move(moveHorizontal, moveVertical);
 			player.setAngle(mouseX,mouseY);
 			player.draw(g);
 		}
+		if(line!=null)
+		{
+			g.drawLine(player.getX(), player.getY(), line.x, line.y);
+		}
+		if(firing && System.currentTimeMillis()-fireTimer>player.weapon.fireDelay)
+		{
+			drawFireTimer=fireTimer=System.currentTimeMillis();
+			player.isFiring=true;
+			player.fire();
+		}
+		if(player.isFiring && System.currentTimeMillis()-drawFireTimer>200)
+		{
+			player.isFiring=false;
+		}
 		repaint();
+	}
+
+	private void drawBlood(Graphics g) 
+	{
+		for(Point p:bloods)
+		{
+			g.drawImage(blood, p.x, p.y, null);
+		}
+		for(Point p:bloods_small)
+		{
+			g.drawImage(blood_small, p.x, p.y, null);
+		}
+	}
+
+	private void drawZombies(Graphics g) 
+	{
+		for(int i=0; i<zombies.size(); i++)
+		{
+			Zombie z=zombies.get(i);
+			if(z.getHealth()<0)
+			{
+				zombies.remove(i);
+				bloods.add(new Point(z.getX(),z.getY()));
+				i--;
+				continue;
+			}
+			z.setAngle();
+			z.draw(g);
+		}
+	}
+
+	private void moveZombies() 
+	{
+		for(Zombie z:zombies)
+		{
+			z.move();
+		}
 	}
 
 	private void drawBackground(Graphics g) 
 	{
-		g.setColor(Color.white);
+		g.setColor(new Color(168,168,168));
 		g.fillRect(0,0,frame.getWidth(),frame.getHeight());
 	}
 

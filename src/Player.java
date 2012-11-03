@@ -8,35 +8,53 @@ import javax.imageio.ImageIO;
 
 public class Player
 {
+	private double tx,ty;
 	private int x,y;
 	private int health;
-	private static BufferedImage img;
+	private static BufferedImage img,fireImg;
 	private double angle;
 	private double speed=2;
+	Weapon weapon=new Weapon();
+	public boolean isFiring=false;
 	
 	public Player(int x, int y)
 	{
-		this.x=x;
-		this.y=y;
+		tx=this.x=x;
+		ty=this.y=y;
 		try {
 			loadImage();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		weapon.setDamage(1);
+		weapon.setClipSize(6);
+		weapon.addAmmo(48);
+	}
+	
+	public void fire()
+	{
+		weapon.fire();
 	}
 	
 	public static void loadImage() throws IOException
 	{
 		img=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"player.png"));
+		fireImg=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"shot.png"));
 	}
 	
 	public void draw(Graphics g)
 	{
+		x=(int) Math.round(tx);
+		y=(int) Math.round(ty);
 		Graphics2D g2 = (Graphics2D)g;
 		g2.translate(x,y);
 		g2.rotate(angle);
 		g2.drawImage(img,-img.getWidth()/2,-img.getHeight()/2,Runner.frame);
-		g2.translate(-(x+img.getWidth()/2),-(y+img.getHeight()/2));
+		if(isFiring)
+			g2.drawImage(fireImg,-img.getWidth()/2,-img.getHeight()/2,Runner.frame);
+		g2.rotate(-angle);
+		g2.translate(-(x),-(y));
 	}
 
 	public void setAngle(int mouseX, int mouseY) 
@@ -48,17 +66,32 @@ public class Player
 			angle-=Math.PI;
 	}
 	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
 	public void move(int moveHorizontal, int moveVertical)
 	{
 		switch(moveHorizontal)
 		{
-		case -1:x-=speed;break;
-		case 1:x+=speed;break;
+		case -1:tx-=speed;break;
+		case 1:tx+=speed;break;
 		}
 		switch(moveVertical)
 		{
-		case -1:y-=speed;break;
-		case 1:y+=speed;break;
+		case -1:ty-=speed;break;
+		case 1:ty+=speed;break;
 		}
+	}
+
+	public double getAngle()
+	{
+		return angle;
 	}
 }
