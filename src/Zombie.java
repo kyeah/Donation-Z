@@ -14,7 +14,7 @@ public class Zombie
 	private int x,y;
 	private int health;
 	private BufferedImage img;
-	private static BufferedImage normal,devil;
+	private static BufferedImage normal,devil,goliath;
 	private double angle;
 	private int damage=1;
 	private double speed=1.5;
@@ -43,13 +43,20 @@ public class Zombie
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			goliath=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"goliath.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void pickType() 
 	{
 		int num=0;
-		if(Math.random()<0.7)
+		if(Math.random()<0.1)
 			num=1;
+		else if(Math.random()<0.99)
+			num=2;
 		try {
 			loadImage(num);
 		} catch (IOException e) {
@@ -63,12 +70,19 @@ public class Zombie
 		{
 			img=normal;
 		}
-		else
+		else if(i==1)
 		{
 			img=devil;
 			speed=3;
 			damage=5;
 			health=15;
+		}
+		else
+		{
+			img=goliath;
+			speed=0.3;
+			damage=50;
+			health=100;
 		}
 	}
 	

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ZombieGenerator
 {
-	static int numZombies=20;
+	static int numZombies=50;
 	
 	public static void generate(ArrayList<Zombie> zombies)
 	{

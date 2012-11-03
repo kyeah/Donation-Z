@@ -61,6 +61,42 @@ public class Connect {
             System.out.println("That is not a valid charity!");
         }
     }
+    public void addCharity(Connection con, String charity_name, String username, String pay_pal) throws SQLException {
+        int id = getCharityID(con, charity_name);
+        if(id != 0) {
+            updateCharity(con, username, id);
+        }
+        else {
+            createCharity(con, charity_name);
+        }
+        updateEmail(con, username, pay_pal);
+    }
+    public void createCharity(Connection con, String charity_name) throws SQLException {
+        con.setAutoCommit(false);
+        String query = "INSERT INTO " + dbName + ".charities" + " (charity_name) VALUES (" + "'" + charity_name + "'" + ")";
+        Statement stmt = con.createStatement();
+        stmt.addBatch(query);
+        stmt.executeBatch();
+        con.commit();
+    }
+    public int getCharityID(Connection con, String charity_name) {
+        int id = 0;
+        String query = "select * " +
+                   "from " + dbName + ".charities";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if(charity_name.toLowerCase().compareTo(rs.getString("charity_name").toLowerCase()) == 0) {
+                    id = rs.getInt("PRIMARY");
+                }
+            }
+        } catch (SQLException e ) {
+            System.err.println(e);
+        }
+        return id;
+        
+    }
     public void updatePA_key(Connection con, String username, String pa_key) {
         String query = "select * " +
                    "from " + dbName + ".scoreboard WHERE username = " + "'" + username + "'";
