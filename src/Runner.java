@@ -193,7 +193,11 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 
 	public void keyPressed(KeyEvent e) 
 	{
-		if(currentPage==1){Login.handleKey(e.getKeyChar(),e.getKeyCode());};
+		if(currentPage==1)
+		{
+			Login.handleKey(e.getKeyChar(),e.getKeyCode());
+			return;
+		}
 		int key=e.getKeyCode();
 		switch(key)
 		{

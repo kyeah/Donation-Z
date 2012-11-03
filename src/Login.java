@@ -101,6 +101,7 @@ public class Login
 	            {
 	            	dz.addUser(con, username, "0", 4, "none", password);
 	            	InfoPrompt p=new InfoPrompt();
+	            	p.setVisible(true);
 	            	p.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 	            }
 	        }

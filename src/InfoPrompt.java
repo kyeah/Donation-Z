@@ -42,7 +42,7 @@ public class InfoPrompt extends JDialog {
 	 * Create the dialog.
 	 */
 	public InfoPrompt() {
-		setBounds(100, 100, 340, 155);
+		setBounds(100, 100, 340, 177);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
