@@ -95,7 +95,7 @@ public class Zombie
 
 	public void damage(int damage) 
 	{
-		Runner.bloods_small.add(new Point(x,y));
+		Runner.bloods_small.add(new Point(x-img.getWidth()/2,y-img.getHeight()/2));
 		health-=damage;
 	}
 

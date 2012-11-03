@@ -51,7 +51,6 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	public static void main(String args[])
 	{
 		player=new Player(100,100);
-		zombies.add(new Zombie(200,200));
 		new Runner();
 		
 		loadResources();
@@ -76,9 +75,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		{
 			refreshTimer=System.currentTimeMillis();
 			drawBackground(g);
+			drawBlood(g);
 			moveZombies();
 			drawZombies(g);
-			drawBlood(g);
+			generateZombies();
 			player.move(moveHorizontal, moveVertical);
 			player.setAngle(mouseX,mouseY);
 			player.draw(g);
@@ -98,6 +98,12 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			player.isFiring=false;
 		}
 		repaint();
+	}
+
+	private void generateZombies() 
+	{
+		if(zombies.size()<=0)
+			ZombieGenerator.generate(zombies);
 	}
 
 	private void drawBlood(Graphics g) 
