@@ -33,7 +33,7 @@ import com.paypal.svcs.types.common.PhoneNumberType;
 import com.paypal.svcs.types.common.RequestEnvelope;
 
 
-public class Payments extends HttpApplet{
+public class Payments extends HttpServlet{
 	
 	public Payments(){
 		super();
