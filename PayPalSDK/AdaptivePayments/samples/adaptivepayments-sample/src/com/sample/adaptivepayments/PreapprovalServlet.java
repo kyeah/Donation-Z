@@ -1,5 +1,3 @@
-package com.sample.adaptivepayments;
-
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
