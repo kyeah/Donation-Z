@@ -219,7 +219,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			case KeyEvent.VK_W:moveVertical=-1;break;
 			case KeyEvent.VK_S:moveVertical=1;break;
 			case KeyEvent.VK_L:if(currentPage==0)currentPage=2;break;
-			case KeyEvent.VK_ENTER:if(currentPage<3)currentPage++;break;
+			case KeyEvent.VK_ENTER:if(currentPage<3){currentPage++;Login.logged=false;}break;
 		}
 	}
 

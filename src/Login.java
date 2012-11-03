@@ -24,6 +24,7 @@ public class Login
 	static String username="aa";
 	static String password="asdfsd";
 	static boolean selectedUsername=true;
+	static boolean logged=false;
 	
 	static
 	{
@@ -85,24 +86,34 @@ public class Login
 	
 	public static void handleKey(char ch, int val)
 	{
-		if(val==KeyEvent.VK_ENTER)
+		if(val==KeyEvent.VK_ENTER && !logged)
 		{
+			if(password.length()==0 || username.length()==0)
+				return;
+			logged=true;
 			ConnectDetails connect = new ConnectDetails();
 	        String database = connect.getDBName();
 	        Connection con;
 	        try {
 	            Connect dz = new Connect(database);
 	            con = connect.getConnection();
-	            if(dz.validAccount(con, username, password))
+	            int result=dz.validAccount(con, username, password);
+	            System.out.println(result);
+	            if(result==1)
 	            {
 	            	Runner.currentPage++;
 	            }
-	            else
+	            else if(result==0)
 	            {
 	            	dz.addUser(con, username, "0", 4, "none", password);
 	            	InfoPrompt p=new InfoPrompt();
 	            	p.setVisible(true);
 	            	p.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+	            }
+	            else
+	            {
+	            	username="";
+	            	password="";
 	            }
 	        }
 	        catch(SQLException e) {

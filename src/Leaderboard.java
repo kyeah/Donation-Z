@@ -60,6 +60,7 @@ public class Leaderboard
         	g.drawString(arr[2], frame.getWidth()/2+50, 300+i*30);
         	i++;
         }
+        g.drawString("Press ESC to return to Main Menu", frame.getWidth()/2-200, frame.getHeight()-50);
 	}
 
 	public static void handleKey(char keyChar, int keyCode) 
