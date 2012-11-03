@@ -81,7 +81,7 @@ public class InfoPrompt extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						if(email.getText().length()>0 && charity.getText().length()>0 && email.getText().contains("@"))
+						if(!(email.getText().length()>0 && charity.getText().length()>0 && email.getText().contains("@")))
 							return;
 						ConnectDetails connect = new ConnectDetails();
 				        String database = connect.getDBName();
