@@ -79,6 +79,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			{
 				Menu.draw(g);
 			}
+			else if(currentPage==1)
+			{
+				Login.draw(g);
+			}
 			else
 			{
 				refreshTimer=System.currentTimeMillis();
@@ -178,6 +182,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 
 	public void keyPressed(KeyEvent e) 
 	{
+		if(currentPage==1){Login.handleKey(e.getKeyChar(),e.getKeyCode());};
 		int key=e.getKeyCode();
 		switch(key)
 		{
@@ -189,7 +194,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			case KeyEvent.VK_D:moveHorizontal=1;break;
 			case KeyEvent.VK_W:moveVertical=-1;break;
 			case KeyEvent.VK_S:moveVertical=1;break;
-			case KeyEvent.VK_ENTER:if(currentPage==0)currentPage=1;break;
+			case KeyEvent.VK_ENTER:if(currentPage<2)currentPage++;break;
 		}
 	}
 
@@ -231,6 +236,15 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 
 	public void mousePressed(MouseEvent e) 
 	{
+		int x=e.getX();
+		int y=e.getY();
+		mouseX=x-frame.getInsets().left;
+		mouseY=y-frame.getInsets().top;
+		if(currentPage==1)
+		{
+			Login.handleMouse(mouseX, mouseY);
+			return;
+		}
 		if(e.getButton()==MouseEvent.BUTTON1)
 		{
 			firing=true;
