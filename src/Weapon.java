@@ -14,7 +14,8 @@ public class Weapon
 {
 	private int clipSize,currentClip,ammo,damage;
 	public long fireDelay=300;
-	private static Clip clip;
+	private static Clip clip,shotgun,machine;
+	private int type=0;
 	
 	static
 	{
@@ -29,9 +30,20 @@ public class Weapon
 		}
 	}
 	
-	public void newWeapon()
+	public void newWeapon(int type)
 	{
 		ammo=0;
+		this.type=type;
+		if(type==0)
+		{
+			this.damage=(int) (Math.random()*5);
+			fireDelay=300;
+		}
+		else if(type==1)
+		{
+			this.damage=(int) (Math.random()*3);
+			fireDelay=50;
+		}
 	}
 	
 	public static void loadSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException
@@ -40,6 +52,11 @@ public class Weapon
 		File f=new File("resources"+File.separator+"sounds"+File.separator+"rifle.wav");
         AudioInputStream inputStream = AudioSystem.getAudioInputStream(f);
         clip.open(inputStream);
+        
+        machine = AudioSystem.getClip();
+		f=new File("resources"+File.separator+"sounds"+File.separator+"machinegun.wav");
+        inputStream = AudioSystem.getAudioInputStream(f);
+        machine.open(inputStream);
 	}
 	
 	public void setClipSize(int i)
@@ -67,8 +84,16 @@ public class Weapon
 	{
 		if(currentClip>0)
 		{
-			clip.setFramePosition(0);
-			clip.start(); 
+			if(type==0)
+			{
+				clip.setFramePosition(0);
+				clip.start(); 
+			}
+			else if(type==1)
+			{
+				machine.setFramePosition(0);
+				machine.start();
+			}
 			//currentClip--;
 			checkIntersection();
 		}

@@ -17,7 +17,7 @@ public class Zombie
 	private static BufferedImage normal,devil,goliath;
 	private double angle;
 	private int damage=1;
-	private double speed=1.5;
+	private double speed=2;
 	
 	public int ID=0;
 	
@@ -53,9 +53,9 @@ public class Zombie
 	private void pickType() 
 	{
 		int num=0;
-		if(Math.random()<0.1)
+		if(Math.random()<0.2)
 			num=1;
-		else if(Math.random()<0.99)
+		else if(Math.random()<0.05)
 			num=2;
 		try {
 			loadImage(num);
@@ -73,14 +73,14 @@ public class Zombie
 		else if(i==1)
 		{
 			img=devil;
-			speed=3;
+			speed=4;
 			damage=5;
 			health=15;
 		}
 		else
 		{
 			img=goliath;
-			speed=0.3;
+			speed=1.5;
 			damage=50;
 			health=100;
 		}
@@ -127,7 +127,7 @@ public class Zombie
 		ny+=cy;
 		
 		boolean movePossible=true;
-		for(Zombie z:Runner.zombies)
+		/*for(Zombie z:Runner.zombies)
 		{
 			if(!equals(z))
 			{
@@ -136,7 +136,7 @@ public class Zombie
 					movePossible=false;
 				}
 			}
-		}
+		}*/
 		
 		if(movePossible)
 		{
