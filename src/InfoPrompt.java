@@ -93,6 +93,8 @@ public class InfoPrompt extends JDialog {
 				            Connect dz = new Connect(database);
 				            con = connect.getConnection();
 				            dz.addCharity(con, charity.getText(), Login.username, email.getText());
+				            Runner.pause=true;
+				            Runner.currentPage=3;
 				            dispose();
 				        }
 				        catch(Exception ee)

@@ -22,8 +22,8 @@ public class Login
 {
 	static JFrame frame=Runner.frame;
 	static BufferedImage background,textFields;
-	static String username="aa";
-	static String password="asdfsd";
+	static String username="user";
+	static String password="123";
 	static boolean selectedUsername=true;
 	static boolean logged=false;
 	

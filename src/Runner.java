@@ -57,7 +57,6 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.LIGHT_GRAY);
-		frame.setAlwaysOnTop(true);
 		frame.addMouseListener(this);
 		frame.addMouseMotionListener(this);
 		frame.addMouseWheelListener(this);
@@ -119,10 +118,6 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 				}
 				if(player.getHealth()<0)
 				{
-					player.giveHealth(9400);
-					bloods.clear();
-					zombies.clear();
-					bloods_small.clear();
 					ConnectDetails connect = new ConnectDetails();
 			        String database = connect.getDBName();
 			        Connection con;
@@ -134,6 +129,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			        catch(SQLException e) {
 			            System.err.println(e);
 			        }
+			        player.giveHealth(9400);
+					bloods.clear();
+					zombies.clear();
+					bloods_small.clear();
 			        currentPage=0;
 			        player.kills=0;
 				}
