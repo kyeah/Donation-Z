@@ -15,7 +15,10 @@ public class Zombie
 	private int health;
 	private static BufferedImage img;
 	private double angle;
-	private double speed=0.75;
+	private int damage=1;
+	private double speed=1.5;
+	
+	public int ID=0;
 	
 	public Zombie(int x, int y)
 	{
@@ -57,29 +60,50 @@ public class Zombie
 	
 	public void move()
 	{
-		int moveHorizontal=0;
-		int moveVertical=0;
+		int changeX=Runner.player.getX()-getX();
+		int changeY=Runner.player.getY()-getY();
 		
-		if(Runner.player.getX()<x+img.getWidth()/2)
-			moveHorizontal=-1;
-		else if(Runner.player.getX()>x+img.getWidth()/2)
-			moveHorizontal=1;
+		int totalChange=Math.abs(changeY)+Math.abs(changeX);
 		
-		if(Runner.player.getY()<y+img.getHeight()/2)
-			moveVertical=-1;
-		else if(Runner.player.getY()>y+img.getHeight()/2)
-			moveVertical=1;
+		double ratioX=1.0*changeX/totalChange;
+		double ratioY=1.0*changeY/totalChange;
 		
-		switch(moveHorizontal)
+		double cx=ratioX*speed;
+		double cy=ratioY*speed;
+		
+		double nx=tx;
+		double ny=ty;
+		
+		nx+=cx;
+		ny+=cy;
+		
+		boolean movePossible=true;
+		for(Zombie z:Runner.zombies)
 		{
-		case -1:tx-=speed;break;
-		case 1:tx+=speed;break;
+			if(!equals(z))
+			{
+				if(z.createBox().contains(nx,ny))
+				{
+					movePossible=false;
+				}
+			}
 		}
-		switch(moveVertical)
+		
+		if(movePossible)
 		{
-		case -1:ty-=speed;break;
-		case 1:ty+=speed;break;
+			tx=nx;
+			ty=ny;
 		}
+		
+		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth()*3/2)
+		{
+			Runner.player.damage(damage);
+		}
+	}
+	
+	public boolean equals(Zombie other)
+	{
+		return ID==other.ID;
 	}
 
 	public int getHealth() 

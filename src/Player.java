@@ -10,7 +10,8 @@ public class Player
 {
 	private double tx,ty;
 	private int x,y;
-	private int health;
+	private int health=9400;
+	public int kills=0;
 	private static BufferedImage img,fireImg;
 	private double angle;
 	private double speed=2;
@@ -56,6 +57,11 @@ public class Player
 		g2.rotate(-angle);
 		g2.translate(-(x),-(y));
 	}
+	
+	public void damage(int val)
+	{
+		health-=val;
+	}
 
 	public void setAngle(int mouseX, int mouseY) 
 	{
@@ -93,5 +99,15 @@ public class Player
 	public double getAngle()
 	{
 		return angle;
+	}
+
+	public int getHealth() 
+	{
+		return health;
+	}
+
+	public void giveHealth(int i) 
+	{
+		health+=i;
 	}
 }

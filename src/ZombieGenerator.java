@@ -6,13 +6,17 @@ public class ZombieGenerator
 	
 	public static void generate(ArrayList<Zombie> zombies)
 	{
+		Runner.player.giveHealth(100);
+		
 		if(numZombies<1000)
 			numZombies*=1.2;
 		zombies.clear();
 		
 		for(int i=0; i<numZombies; i++)
 		{
-			zombies.add(new Zombie(getRandomX(),getRandomY()));
+			Zombie newZombie=new Zombie(getRandomX(),getRandomY());
+			newZombie.ID=i;
+			zombies.add(newZombie);
 		}
 	}
 
