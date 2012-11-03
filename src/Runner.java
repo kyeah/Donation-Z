@@ -108,7 +108,9 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 				if(player.getHealth()<0)
 				{
 					player.giveHealth(9400);
-					player.kills=0;
+					bloods.clear();
+					zombies.clear();
+					bloods_small.clear();
 					ConnectDetails connect = new ConnectDetails();
 			        String database = connect.getDBName();
 			        Connection con;
@@ -121,6 +123,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			            System.err.println(e);
 			        }
 			        currentPage=0;
+			        player.kills=0;
 				}
 				refreshTimer=System.currentTimeMillis();
 				drawBackground(g);
@@ -174,7 +177,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		for(int i=0; i<zombies.size(); i++)
 		{
 			Zombie z=zombies.get(i);
-			if(z.getHealth()<0)
+			if(z.getHealth()<=0)
 			{
 				zombies.remove(i);
 				player.kills+=z.score;

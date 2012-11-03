@@ -118,7 +118,7 @@ public class Weapon
 			{
 				double change=0.0;
 				if(i!=0)
-					change=Math.random()*.2-.1;
+					change=Math.random()*.5-.25;
 				checkIntersection(change);
 			}
 		}
@@ -134,7 +134,7 @@ public class Weapon
 			{
 				Zombie z=Runner.zombies.get(i);
 				Rectangle rect=z.createBox();
-				if(rect.contains(bull.x, bull.y))
+				if(rect.contains(bull.x, bull.y) && z.getHealth()>0)
 				{
 					z.damage(damage);
 					return;

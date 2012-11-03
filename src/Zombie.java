@@ -113,10 +113,19 @@ public class Zombie
 	
 	public void move()
 	{
+		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth())
+		{
+			Runner.player.damage(damage);
+			return;
+		}
+		
 		int changeX=Runner.player.getX()-getX();
 		int changeY=Runner.player.getY()-getY();
 		
 		int totalChange=Math.abs(changeY)+Math.abs(changeX);
+		
+		if(totalChange<speed)
+			return;
 		
 		double ratioX=1.0*changeX/totalChange;
 		double ratioY=1.0*changeY/totalChange;
@@ -129,8 +138,6 @@ public class Zombie
 		
 		nx+=cx;
 		ny+=cy;
-		
-		System.out.println(nx+" "+ny);
 		
 		boolean movePossible=true;
 		/*for(Zombie z:Runner.zombies)
@@ -148,11 +155,6 @@ public class Zombie
 		{
 			tx=nx;
 			ty=ny;
-		}
-		
-		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth())
-		{
-			Runner.player.damage(damage);
 		}
 	}
 	
@@ -180,11 +182,11 @@ public class Zombie
 
 	public int getX() 
 	{
-		return x-img.getWidth()/2;
+		return (int) (tx-img.getWidth()/2);
 	}
 	
 	public int getY() 
 	{
-		return y-img.getHeight()/2;
+		return (int) (ty-img.getHeight()/2);
 	}
 }
