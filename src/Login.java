@@ -1,13 +1,21 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+
+import donationz.Connect;
+import donationz.ConnectDetails;
 
 public class Login
 {
@@ -79,7 +87,25 @@ public class Login
 	{
 		if(val==KeyEvent.VK_ENTER)
 		{
-			//TODO Login
+			ConnectDetails connect = new ConnectDetails();
+	        String database = connect.getDBName();
+	        Connection con;
+	        try {
+	            Connect dz = new Connect(database);
+	            con = connect.getConnection();
+	            if(dz.validAccount(con, username, password))
+	            {
+	            	Runner.currentPage++;
+	            }
+	            else
+	            {
+	            	dz.addUser(con, username, "0", 4, "none", password);
+	            }
+	        }
+	        catch(SQLException e) {
+	            System.err.println(e);
+	        }
+			
 		}
 		else if(val==KeyEvent.VK_BACK_SPACE)
 		{
@@ -104,3 +130,4 @@ public class Login
 		}
 	}
 }
+
