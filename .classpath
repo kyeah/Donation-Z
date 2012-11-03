@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptivePayments/dist/adaptivepayments-java-sdk_1.2.95.jar"/>
 	<classpathentry kind="lib" path="G:/Hackathons/eBay/PayPalSDK/AdaptiveAccounts/dist/adaptiveaccounts-java-sdk_1.2.95.jar"/>
 	<classpathentry kind="lib" path="PayPalSDK"/>
+	<classpathentry kind="lib" path="/Users/Docs/Documents/JavaWorkspace/DonationZ/PayPalSDK/AdaptivePayments/dist/adaptivepayments-java-sdk_1.2.95.jar"/>
+	<classpathentry kind="lib" path="/Users/Docs/Documents/JavaWorkspace/DonationZ/PayPalSDK/Merchant/dist/merchant-java-sdk_1.2.95.jar"/>
+	<classpathentry kind="lib" path="/Users/Docs/Documents/JavaWorkspace/DonationZ/PayPalSDK/AdaptiveAccounts/dist/adaptiveaccounts-java-sdk_1.2.95.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
