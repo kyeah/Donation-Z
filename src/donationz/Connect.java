@@ -24,7 +24,8 @@ public class Connect {
     	ArrayList<String> leader=new ArrayList<String>();
     Statement stmt = null;
     String query = "select " + dbName + ".scoreboard.username, " + dbName + ".scoreboard.score, " + dbName + ".charities.charity_name " +
-                   "from " + dbName + ".scoreboard INNER JOIN " + "dbName" + ".charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY ORDER BY score DESC";
+                   "from " + dbName + ".scoreboard INNER JOIN " + dbName + ".charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY ORDER BY score DESC";
+    System.out.println(query);
     try {
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
