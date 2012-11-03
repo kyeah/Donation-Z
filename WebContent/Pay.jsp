@@ -27,9 +27,13 @@
 
 					<div class="param_name">Action Type*</div>
 					<div class="param_value">
-						<input name="actionType" value="PAY" />
+						<select name="actionType">
+							<option value="">--Select a value--</option>
+							<option value="PAY">Pay</option>
+							<option value="CREATE">Create</option>
+							<option value="PAY_PRIMARY">Pay Primary</option>
+						</select>
 					</div>
-					
 					<div class="param_name">Cancel URL*</div>
 					<div class="param_value">
 						<input type="text" name="cancelURL" value="<%=returnURL%>" />
@@ -38,9 +42,12 @@
 					<div class="param_value">
 						<input type="text" name="returnURL" value="<%=returnURL%>" />
 					</div>
-					
 					<div class="section_header">ReceiverList</div>
-					<div class="note">Receiver blah</div>
+					<div class="note">Receiver is the party where funds are
+						transferred to. A primary receiver receives a payment directly
+						from the sender in a chained split payment. A primary receiver
+						should not be specified when making a single or parallel split
+						payment. Must set either mail or phone number</div>
 					<table>
 						<tr>
 							<th class="param_name">Amount*(Double)</th>
@@ -55,7 +62,7 @@
 							<td class="param_value"><input type="text" name="amount"
 								value="2.00" /></td>
 							<td class="param_value"><input type="text" name="mail"
-								value="<%=charityName%>" /></td>
+								value="" /></td>
 							<td class="param_value"><select name="setPrimary">
 									<option value="">--Select a value--</option>
 									<option value="false">Not a Primary Receiver</option>
