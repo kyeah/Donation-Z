@@ -4,6 +4,7 @@
  */
 package donationz;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 /**
  *
@@ -17,9 +18,10 @@ public class Connect {
     public void setDb(String dbName) {
         this.dbName = dbName;
     }
-    public void viewScoreboard(Connection con)
+    public ArrayList<String> viewScoreboard(Connection con)
     throws SQLException {
 
+    	ArrayList<String> leader=new ArrayList<String>();
     Statement stmt = null;
     String query = "select " + dbName + ".scoreboard.username, " + dbName + ".scoreboard.score, " + dbName + ".charities.charity_name " +
                    "from " + dbName + ".scoreboard INNER JOIN " + "dbName" + ".charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY ORDER BY score DESC";
@@ -31,13 +33,15 @@ public class Connect {
             String user = rs.getString("username");
             String charity = rs.getString("charity_name");
             int score = rs.getInt("score");
-            System.out.println(user + "\t" + score + "\t" + charity);
+            leader.add(user + "\t" + score + "\t" + charity);
         }
+        return leader;
     } catch (SQLException e ) {
         System.err.println(e);
     } finally {
         if (stmt != null) { stmt.close(); }
     }
+    return null;
     
 }
     public void addUser(Connection con, String user, String score, int charity, String paypal_email, String password) throws SQLException {

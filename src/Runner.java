@@ -87,6 +87,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			{
 				Login.draw(g);
 			}
+			else if(currentPage==2)
+			{
+				Leaderboard.draw(g);
+			}
 			else
 			{
 				if(!init)
@@ -198,6 +202,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			Login.handleKey(e.getKeyChar(),e.getKeyCode());
 			return;
 		}
+		else if(currentPage==2)
+		{
+			
+		}
 		int key=e.getKeyCode();
 		switch(key)
 		{
@@ -209,7 +217,8 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			case KeyEvent.VK_D:moveHorizontal=1;break;
 			case KeyEvent.VK_W:moveVertical=-1;break;
 			case KeyEvent.VK_S:moveVertical=1;break;
-			case KeyEvent.VK_ENTER:if(currentPage<2)currentPage++;break;
+			case KeyEvent.VK_L:if(currentPage==0)currentPage=3;break;
+			case KeyEvent.VK_ENTER:if(currentPage<3)currentPage++;break;
 		}
 	}
 
