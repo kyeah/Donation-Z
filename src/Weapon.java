@@ -51,7 +51,7 @@ public class Weapon
 		{
 			this.damage=(int) 2;
 			fireDelay=750;
-			numBullets=6;
+			numBullets=10;
 		}
 	}
 	

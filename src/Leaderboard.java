@@ -55,9 +55,9 @@ public class Leaderboard
         for(String ss:leader)
         {
         	String arr[]=ss.split("\t");
-        	g.drawString(arr[0], frame.getWidth()/2-450, 300+i*30);
-        	g.drawString(arr[1], frame.getWidth()/2-200, 300+i*30);
-        	g.drawString(arr[2], frame.getWidth()/2+50, 300+i*30);
+        	g.drawString(arr[0], frame.getWidth()/2-450, 300+i*40);
+        	g.drawString(arr[1], frame.getWidth()/2-200, 300+i*40);
+        	g.drawString(arr[2], frame.getWidth()/2+50, 300+i*40);
         	i++;
         }
         g.drawString("Press ESC to return to Main Menu", frame.getWidth()/2-200, frame.getHeight()-50);

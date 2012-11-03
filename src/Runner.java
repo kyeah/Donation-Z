@@ -128,8 +128,8 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 				refreshTimer=System.currentTimeMillis();
 				drawBackground(g);
 				drawBlood(g);
-				moveZombies();
 				drawZombies(g);
+				moveZombies();
 				generateZombies();
 				player.move(moveHorizontal, moveVertical);
 				player.setAngle(mouseX,mouseY);

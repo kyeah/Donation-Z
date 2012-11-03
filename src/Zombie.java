@@ -1,3 +1,4 @@
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -19,6 +20,9 @@ public class Zombie
 	private int damage=1;
 	private double speed=1.25;
 	public int score=100;
+	private int type=0;
+	private int targetx,targety;
+	private boolean noAngle=false;
 	
 	public int ID=0;
 	
@@ -53,13 +57,12 @@ public class Zombie
 	
 	private void pickType() 
 	{
-		int num=0;
-		if(Math.random()<0.1)
-			num=1;
+		if(Math.random()<0.05)
+			type=1;
 		else if(Math.random()<0.05)
-			num=2;
+			type=2;
 		try {
-			loadImage(num);
+			loadImage(type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -104,6 +107,8 @@ public class Zombie
 
 	public void setAngle() 
 	{
+		if(noAngle)
+			return;
 		double diffY=1.0*Runner.player.getY()-y;
 		double diffX=1.0*Runner.player.getX()-x;
 		angle=Math.atan(diffY/diffX)+Math.PI/2;
@@ -113,12 +118,44 @@ public class Zombie
 	
 	public void move()
 	{
+		
 		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth())
 		{
 			Runner.player.damage(damage);
 			return;
 		}
-		
+		if(tx>0 && ty>0 && tx<Runner.frame.getWidth() && ty<Runner.frame.getHeight() && type==0 && Math.random()<0.9 && !(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<115))
+		{
+			noAngle=true;
+			if(Math.random()<0.05)
+			{
+				targetx=(int) (Math.random()*Runner.frame.getWidth());
+				targety=(int) (Math.random()*Runner.frame.getHeight());
+			}
+			
+			int changeX=targetx-getX();
+			int changeY=targety-getY();
+
+			int totalChange=Math.abs(changeY)+Math.abs(changeX);
+			
+			if(totalChange<speed)
+				return;
+			
+			double ratioX=1.0*changeX/totalChange;
+			double ratioY=1.0*changeY/totalChange;
+			
+			if(changeX==0)
+				return;
+			
+			tx+=ratioX*speed;
+			ty+=ratioY*speed;
+			
+			angle=Math.atan(changeY/changeX)+Math.PI/2;
+			if(changeX<0)
+				angle-=Math.PI;
+			return;
+		}
+		noAngle=false;
 		int changeX=Runner.player.getX()-getX();
 		int changeY=Runner.player.getY()-getY();
 		
