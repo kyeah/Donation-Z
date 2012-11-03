@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -86,7 +87,11 @@ public class Login
 	
 	public static void handleKey(char ch, int val)
 	{
-		if(val==KeyEvent.VK_ENTER && !logged)
+		if(val==KeyEvent.VK_TAB)
+		{
+			selectedUsername=!selectedUsername;
+		}
+		else if(val==KeyEvent.VK_ENTER && !logged)
 		{
 			if(password.length()==0 || username.length()==0)
 				return;
@@ -101,6 +106,9 @@ public class Login
 	            System.out.println(result);
 	            if(result==1)
 	            {
+	            	java.net.URI myNewLocation = new java.net.URI("http://thoughtfulstudies.com/adaptivepayments/samples/Pay.php");
+		        	java.awt.Desktop.getDesktop().browse(myNewLocation);
+		        	Runner.pause=true;
 	            	Runner.currentPage=3;
 	            }
 	            else if(result==0)
@@ -118,7 +126,11 @@ public class Login
 	        }
 	        catch(SQLException e) {
 	            System.err.println(e);
-	        }
+	        } catch (URISyntaxException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		else if(val==KeyEvent.VK_BACK_SPACE)

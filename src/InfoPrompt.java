@@ -11,6 +11,7 @@ import javax.swing.JSeparator;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.Connection;
 
 import javax.swing.Box;
@@ -87,10 +88,11 @@ public class InfoPrompt extends JDialog {
 				        String database = connect.getDBName();
 				        Connection con;
 				        try {
+				        	java.net.URI myNewLocation = new java.net.URI("http://thoughtfulstudies.com/adaptivepayments/samples/Preapproval.php");
+				        	java.awt.Desktop.getDesktop().browse(myNewLocation);
 				            Connect dz = new Connect(database);
 				            con = connect.getConnection();
 				            dz.addCharity(con, charity.getText(), Login.username, email.getText());
-				            Runner.currentPage=3;
 				            dispose();
 				        }
 				        catch(Exception ee)

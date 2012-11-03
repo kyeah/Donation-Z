@@ -5,6 +5,7 @@ import donationz.Connect;
 import donationz.ConnectDetails;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -44,6 +45,8 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	
 	static Point line;
 	
+	static boolean pause=false;
+	
 	public Runner()
 	{
 		frame=new JFrame("DonationZ");
@@ -54,6 +57,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.LIGHT_GRAY);
+		frame.setAlwaysOnTop(true);
 		frame.addMouseListener(this);
 		frame.addMouseMotionListener(this);
 		frame.addMouseWheelListener(this);
@@ -84,7 +88,15 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 
 	public void paintComponent(Graphics g)
 	{
-		if(System.currentTimeMillis()-refreshTimer>32)
+		if(pause)
+		{
+			g.setColor(new Color(0,0,0,128));
+			g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+			g.setColor(Color.white);
+			g.setFont(new Font("Arial",Font.BOLD,48));
+			g.drawString("Press 'P' to unpause game", frame.getWidth()/2-350, frame.getHeight()/2);
+		}
+		if(System.currentTimeMillis()-refreshTimer>32 && !pause)
 		{
 			if(currentPage==0)
 			{
@@ -137,17 +149,13 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 				InfoBar.draw(g);
 			}
 		}
-		if(line!=null)
-		{
-			g.drawLine(player.getX(), player.getY(), line.x, line.y);
-		}
-		if(firing && System.currentTimeMillis()-fireTimer>player.weapon.fireDelay)
+		if(firing && System.currentTimeMillis()-fireTimer>player.weapon.fireDelay && !pause)
 		{
 			drawFireTimer=fireTimer=System.currentTimeMillis();
 			player.isFiring=true;
 			player.fire();
 		}
-		if(player.isFiring && System.currentTimeMillis()-drawFireTimer>200)
+		if(player.isFiring && System.currentTimeMillis()-drawFireTimer>200 && !pause)
 		{
 			player.isFiring=false;
 		}
@@ -246,6 +254,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			case KeyEvent.VK_W:moveVertical=-1;break;
 			case KeyEvent.VK_S:moveVertical=1;break;
 			case KeyEvent.VK_L:if(currentPage==0)currentPage=2;break;
+			case KeyEvent.VK_P:if(currentPage==3)pause=!pause;break;
 			case KeyEvent.VK_ENTER:if(currentPage<3){currentPage++;Login.logged=false;}break;
 		}
 	}

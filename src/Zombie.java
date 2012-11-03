@@ -18,7 +18,7 @@ public class Zombie
 	private static BufferedImage normal,devil,goliath;
 	private double angle;
 	private int damage=1;
-	private double speed=1.25;
+	private double speed=1.75;
 	public int score=100;
 	private int type=0;
 	private int targetx,targety;
