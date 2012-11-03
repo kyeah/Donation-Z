@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -41,5 +42,13 @@ public class Leaderboard
         {
         	e.getMessage();
         }
+	}
+
+	public static void handleKey(char keyChar, int keyCode) 
+	{
+		if(keyCode==KeyEvent.VK_ESCAPE)
+		{
+			Runner.currentPage=0;
+		}
 	}
 }
