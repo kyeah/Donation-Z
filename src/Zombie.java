@@ -13,7 +13,8 @@ public class Zombie
 	private double tx,ty;
 	private int x,y;
 	private int health;
-	private static BufferedImage img;
+	private BufferedImage img;
+	private static BufferedImage normal,devil;
 	private double angle;
 	private int damage=1;
 	private double speed=1.5;
@@ -25,16 +26,50 @@ public class Zombie
 		tx=this.x=x;
 		ty=this.y=y;
 		health=5;
+		
+		
+		pickType();
+	}
+	
+	static
+	{
 		try {
-			loadImage();
+			normal=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"zombie.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			devil=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"devil.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void loadImage() throws IOException
+	private void pickType() 
 	{
-		img=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"zombie.png"));
+		int num=0;
+		if(Math.random()<0.7)
+			num=1;
+		try {
+			loadImage(num);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadImage(int i) throws IOException
+	{
+		if(i==0)
+		{
+			img=normal;
+		}
+		else
+		{
+			img=devil;
+			speed=3;
+			damage=5;
+			health=15;
+		}
 	}
 	
 	public void draw(Graphics g)
@@ -95,7 +130,7 @@ public class Zombie
 			ty=ny;
 		}
 		
-		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth()*3/2)
+		if(Math.sqrt(Math.pow(getX()-Runner.player.getX(),2)+Math.pow(getY()-Runner.player.getY(),2))<img.getWidth()*6/5)
 		{
 			Runner.player.damage(damage);
 		}

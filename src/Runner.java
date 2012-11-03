@@ -28,6 +28,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	static ArrayList<Point> bloods=new ArrayList<Point>();
 	static ArrayList<Point> bloods_small=new ArrayList<Point>();
 	static BufferedImage blood;
+	static BufferedImage sand;
 	static BufferedImage blood_small;
 	
 	static int currentPage=0;
@@ -62,6 +63,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	{
 		try
 		{
+			sand=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"sand.jpg"));
 			blood=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"blood.png"));
 			blood_small=ImageIO.read(new File("resources"+File.separator+"graphics"+File.separator+"blood_small.png"));
 		}
@@ -160,8 +162,10 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 
 	private void drawBackground(Graphics g) 
 	{
-		g.setColor(new Color(168,168,168));
-		g.fillRect(0,0,frame.getWidth(),frame.getHeight());
+		//g.setColor(new Color(168,168,168));
+		//g.fillRect(0,0,frame.getWidth(),frame.getHeight());
+		
+		g.drawImage(sand, 0, 0, frame);
 	}
 
 	public void mouseDragged(MouseEvent e) 
