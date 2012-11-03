@@ -22,7 +22,7 @@ public class Connect {
 
     Statement stmt = null;
     String query = "select " + dbName + ".scoreboard.username, " + dbName + ".scoreboard.score, " + dbName + ".charities.charity_name " +
-                   "from " + dbName + ".scoreboard INNER JOIN donationz.charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY ORDER BY score DESC";
+                   "from " + dbName + ".scoreboard INNER JOIN " + "dbName" + ".charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY ORDER BY score DESC";
     try {
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
@@ -233,7 +233,7 @@ public class Connect {
      public String getCharity(Connection con, String username) {
         String charity = "";
         String query = "select " + dbName + ".charities.charity_name" +
-                   " from " + dbName + ".scoreboard" + " INNER JOIN donationz.charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY" + " WHERE username = " + "'" + username + "'";
+                   " from " + dbName + ".scoreboard" + " INNER JOIN " + "dbName" + ".charities ON " + dbName + ".scoreboard.charity = " + dbName + ".charities.PRIMARY" + " WHERE username = " + "'" + username + "'";
         try {
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                    ResultSet.CONCUR_UPDATABLE);

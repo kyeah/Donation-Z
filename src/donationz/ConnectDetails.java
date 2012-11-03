@@ -16,11 +16,11 @@ import java.util.Properties;
 
 public class ConnectDetails {
     private String dbms = "mysql";
-    private String serverName = "localhost"; //"mysql13.000webhost.com";
+    private String serverName = "just96.justhost.com"; //"localhost"; 
     private String portNumber = "3306";
-    private String userName = "claudio";//"a4577019_claudio";
+    private String userName = "thoughtf_claudio"; 
     private String password = "cloud999";
-    private String dbName = "donationz";//"a4577019_leader";
+    private String dbName = "thoughtf_donationz";
     
     public Connection getConnection() throws SQLException {
         Connection conn = null;
