@@ -30,6 +30,8 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	static BufferedImage blood;
 	static BufferedImage blood_small;
 	
+	static int currentPage=0;
+	
 	static Point line;
 	
 	public Runner()
@@ -73,17 +75,23 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 	{
 		if(System.currentTimeMillis()-refreshTimer>32)
 		{
-			frame.setTitle(""+zombies.size());
-			refreshTimer=System.currentTimeMillis();
-			drawBackground(g);
-			drawBlood(g);
-			moveZombies();
-			drawZombies(g);
-			generateZombies();
-			player.move(moveHorizontal, moveVertical);
-			player.setAngle(mouseX,mouseY);
-			player.draw(g);
-			InfoBar.draw(g);
+			if(currentPage==0)
+			{
+				Menu.draw(g);
+			}
+			else
+			{
+				refreshTimer=System.currentTimeMillis();
+				drawBackground(g);
+				drawBlood(g);
+				moveZombies();
+				drawZombies(g);
+				generateZombies();
+				player.move(moveHorizontal, moveVertical);
+				player.setAngle(mouseX,mouseY);
+				player.draw(g);
+				InfoBar.draw(g);
+			}
 		}
 		if(line!=null)
 		{
@@ -181,6 +189,7 @@ public class Runner extends JPanel implements MouseMotionListener, KeyListener, 
 			case KeyEvent.VK_D:moveHorizontal=1;break;
 			case KeyEvent.VK_W:moveVertical=-1;break;
 			case KeyEvent.VK_S:moveVertical=1;break;
+			case KeyEvent.VK_ENTER:if(currentPage==0)currentPage=1;break;
 		}
 	}
 
