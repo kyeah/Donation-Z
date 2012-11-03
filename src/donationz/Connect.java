@@ -185,7 +185,7 @@ public class Connect {
             System.err.println(e);
         }
     }
-    public boolean validAccount(Connection con, String username, String password) {
+    public int validAccount(Connection con, String username, String password) {
         String query = "select username, pword " +
                    "from " + dbName + ".scoreboard";
         try {
@@ -195,13 +195,16 @@ public class Connect {
                 String user = rs.getString("username");
                 String pass = rs.getString("pword");
                 if((username.compareTo(user) == 0) && (pass.compareTo(password) == 0)) {
-                    return true;
+                    return 1;
+                }
+                else if ((username.compareTo(user) == 0) && (pass.compareTo(password) != 0)) {
+                	return -1;
                 }
             }
         } catch (SQLException e ) {
             System.err.println(e);
         }
-        return false;
+        return 0;
     }
     public String getEmail(Connection con, String username) {
         String email = "none";
