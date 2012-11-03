@@ -73,7 +73,7 @@ public class Payments extends HttpServlet{
 			rec.setAmount(Double.parseDouble(request.getParameter("amount")));
 		if (request.getParameter("mail") != "")
 			rec.setEmail(request.getParameter("mail"));
-		/*if (request.getParameter("invoiceID") != "")
+		if (request.getParameter("invoiceID") != "")
 			rec.setInvoiceId(request.getParameter("invoiceID"));
 		if (request.getParameter("paymentSubType") != "")
 			rec.setPaymentSubType(request.getParameter("paymentSubType"));
@@ -89,7 +89,7 @@ public class Payments extends HttpServlet{
 		if (request.getParameter("setPrimary") != "")
 			rec.setPrimary(Boolean.parseBoolean(request
 					.getParameter("setPrimary")));
-*/
+
 		receiver.add(rec);
 		ReceiverList receiverlst = new ReceiverList(receiver);
 		req.setReceiverList(receiverlst);
