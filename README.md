@@ -3,4 +3,6 @@ Donation-Z
 
 Donation-Z allows you to gamble your money away...for charity.
 
-by: Tyler Yates, Claudio Wilson, Kathy Spradlin, Kevin Yeh
+Created by Tyler Yates, Claudio Wilson, Kathy Spradlin, Kevin Yeh
+
+Ebay Hackathon at UT Austin, 2012
